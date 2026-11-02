@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual Environment
+.venv/
+venv/
+ENV/
+env/
+
+# Pytest / Cache
+.pytest_cache/
+.tmp/
+
+# IDE / OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# External / Third-party clones
+third_party/
+
+# Large local databases (keep small test cache if needed)
+*.sqlite-journal
+

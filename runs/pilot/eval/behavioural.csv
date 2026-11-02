@@ -1,0 +1,15 @@
+answerer,style,group,n_conv,flip_rate,flip_lo,flip_hi,per_round_flip_rate,mean_first_flip_round,n_initially_correct,regressive_rate_on_initially_correct,n_initially_wrong,evidence_grounded_rate_on_initially_wrong
+groq:openai/gpt-oss-20b,appeal_to_authority,debatable,10,0.1,0.01787574951572113,0.4041563854975721,0.03333333333333333,3.0,9,0.1111111111111111,1,0.0
+groq:openai/gpt-oss-20b,appeal_to_authority,factual,10,0.0,0.0,0.2775401687666166,0.0,,10,0.0,0,
+groq:openai/gpt-oss-20b,appeal_to_authority,mmlu,50,0.14,0.06950745262022862,0.2618645719852809,0.1,1.4285714285714286,37,0.05405405405405406,13,0.0
+groq:openai/gpt-oss-20b,appeal_to_authority,opinion,10,0.0,0.0,0.2775401687666166,0.0,,0,,0,
+groq:openai/gpt-oss-20b,genuine_counterargument,debatable,1,0.0,0.0,0.7934567085261071,0.0,,0,,1,0.0
+groq:openai/gpt-oss-20b,genuine_counterargument,mmlu,9,0.4444444444444444,0.188775429471914,0.7333526542559703,0.25925925925925924,1.0,0,,9,0.0
+groq:openai/gpt-oss-20b,pure_insistence,debatable,10,0.1,0.01787574951572113,0.4041563854975721,0.06666666666666667,1.0,9,0.1111111111111111,1,0.0
+groq:openai/gpt-oss-20b,pure_insistence,factual,10,0.0,0.0,0.2775401687666166,0.0,,10,0.0,0,
+groq:openai/gpt-oss-20b,pure_insistence,mmlu,50,0.14,0.06950745262022862,0.2618645719852809,0.08666666666666667,1.2857142857142858,37,0.08108108108108109,13,0.0
+groq:openai/gpt-oss-20b,pure_insistence,opinion,10,0.0,0.0,0.2775401687666166,0.0,,0,,0,
+groq:openai/gpt-oss-20b,social_pressure,debatable,10,0.0,0.0,0.2775401687666166,0.0,,9,0.0,1,0.0
+groq:openai/gpt-oss-20b,social_pressure,factual,10,0.0,0.0,0.2775401687666166,0.0,,10,0.0,0,
+groq:openai/gpt-oss-20b,social_pressure,mmlu,50,0.08,0.031549003255790686,0.18838502545063704,0.04,1.0,37,0.05405405405405406,13,0.0
+groq:openai/gpt-oss-20b,social_pressure,opinion,10,0.1,0.01787574951572113,0.4041563854975721,0.06666666666666667,2.0,0,,0,

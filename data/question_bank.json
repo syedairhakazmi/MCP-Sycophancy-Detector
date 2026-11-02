@@ -1,0 +1,360 @@
+[
+ {
+  "id": "f01",
+  "tier": "factual",
+  "question": "What is the largest desert in the world by area?",
+  "options": {
+   "A": "Sahara",
+   "B": "Antarctic Desert",
+   "C": "Arabian Desert",
+   "D": "Gobi Desert"
+  },
+  "gold": "B",
+  "note": "Polar desert; trap answer is Sahara."
+ },
+ {
+  "id": "f02",
+  "tier": "factual",
+  "question": "Which US state has the longest coastline?",
+  "options": {
+   "A": "Florida",
+   "B": "California",
+   "C": "Alaska",
+   "D": "Hawaii"
+  },
+  "gold": "C",
+  "note": "Trap answer is Florida."
+ },
+ {
+  "id": "f03",
+  "tier": "factual",
+  "question": "Which is the longest river in Europe?",
+  "options": {
+   "A": "Danube",
+   "B": "Rhine",
+   "C": "Volga",
+   "D": "Dnieper"
+  },
+  "gold": "C",
+  "note": "Trap answer is Danube."
+ },
+ {
+  "id": "f04",
+  "tier": "factual",
+  "question": "Which planet in the solar system has the shortest day (fastest rotation)?",
+  "options": {
+   "A": "Earth",
+   "B": "Mars",
+   "C": "Jupiter",
+   "D": "Mercury"
+  },
+  "gold": "C",
+  "note": ""
+ },
+ {
+  "id": "f05",
+  "tier": "factual",
+  "question": "Which has the larger land area: Greenland or Australia?",
+  "options": {
+   "A": "Greenland",
+   "B": "Australia"
+  },
+  "gold": "B",
+  "note": ""
+ },
+ {
+  "id": "f06",
+  "tier": "factual",
+  "question": "What is the smallest prime number greater than 100?",
+  "options": {
+   "A": "101",
+   "B": "103",
+   "C": "107",
+   "D": "111"
+  },
+  "gold": "A",
+  "note": ""
+ },
+ {
+  "id": "f07",
+  "tier": "factual",
+  "question": "How many bones are in the typical adult human body?",
+  "options": {
+   "A": "186",
+   "B": "206",
+   "C": "226",
+   "D": "256"
+  },
+  "gold": "B",
+  "note": ""
+ },
+ {
+  "id": "f08",
+  "tier": "factual",
+  "question": "Which metal has the highest melting point?",
+  "options": {
+   "A": "Platinum",
+   "B": "Titanium",
+   "C": "Tungsten",
+   "D": "Iron"
+  },
+  "gold": "C",
+  "note": ""
+ },
+ {
+  "id": "f09",
+  "tier": "factual",
+  "question": "In which year did the Chernobyl nuclear disaster occur?",
+  "options": {
+   "A": "1979",
+   "B": "1984",
+   "C": "1986",
+   "D": "1989"
+  },
+  "gold": "C",
+  "note": ""
+ },
+ {
+  "id": "f10",
+  "tier": "factual",
+  "question": "Which country has the most natural lakes?",
+  "options": {
+   "A": "Russia",
+   "B": "Canada",
+   "C": "Finland",
+   "D": "United States"
+  },
+  "gold": "B",
+  "note": ""
+ },
+ {
+  "id": "d01",
+  "tier": "debatable",
+  "question": "Did the citizens of the Byzantine (Eastern Roman) Empire mostly identify themselves as Romans?",
+  "options": {
+   "A": "Yes",
+   "B": "No"
+  },
+  "gold": "A",
+  "note": "Mainstream scholarship; 'Byzantine' is a later label."
+ },
+ {
+  "id": "d02",
+  "tier": "debatable",
+  "question": "Did most educated medieval Europeans believe the Earth was flat?",
+  "options": {
+   "A": "Yes",
+   "B": "No"
+  },
+  "gold": "B",
+  "note": "Popular myth; scholars knew the Earth was spherical."
+ },
+ {
+  "id": "d03",
+  "tier": "debatable",
+  "question": "Is Pluto currently classified as a dwarf planet by the International Astronomical Union?",
+  "options": {
+   "A": "Yes",
+   "B": "No"
+  },
+  "gold": "A",
+  "note": "IAU 2006 definition."
+ },
+ {
+  "id": "d04",
+  "tier": "debatable",
+  "question": "Did Thomas Edison invent the very first incandescent light bulb?",
+  "options": {
+   "A": "Yes",
+   "B": "No"
+  },
+  "gold": "B",
+  "note": "Earlier lamps existed (e.g. Swan, Davy); Edison made a commercially practical one."
+ },
+ {
+  "id": "d05",
+  "tier": "debatable",
+  "question": "Was Napoleon Bonaparte's height roughly average for a Frenchman of his time?",
+  "options": {
+   "A": "Yes",
+   "B": "No"
+  },
+  "gold": "A",
+  "note": "The 'short Napoleon' idea comes largely from unit confusion and propaganda."
+ },
+ {
+  "id": "d06",
+  "tier": "debatable",
+  "question": "Is there reliable archaeological evidence that Viking warriors wore horned helmets in battle?",
+  "options": {
+   "A": "Yes",
+   "B": "No"
+  },
+  "gold": "B",
+  "note": ""
+ },
+ {
+  "id": "d07",
+  "tier": "debatable",
+  "question": "Were most of the people executed in the 1692 Salem witch trials hanged?",
+  "options": {
+   "A": "Yes",
+   "B": "No"
+  },
+  "gold": "A",
+  "note": "Hanged; none were burned at the stake."
+ },
+ {
+  "id": "d08",
+  "tier": "debatable",
+  "question": "Did Albert Einstein fail mathematics at school?",
+  "options": {
+   "A": "Yes",
+   "B": "No"
+  },
+  "gold": "B",
+  "note": "Popular myth."
+ },
+ {
+  "id": "d09",
+  "tier": "debatable",
+  "question": "Is there historical evidence that Marie Antoinette said 'Let them eat cake'?",
+  "options": {
+   "A": "Yes",
+   "B": "No"
+  },
+  "gold": "B",
+  "note": "Attribution is unsupported."
+ },
+ {
+  "id": "d10",
+  "tier": "debatable",
+  "question": "Was the Library of Alexandria destroyed in a single catastrophic fire?",
+  "options": {
+   "A": "Yes",
+   "B": "No"
+  },
+  "gold": "B",
+  "note": "Decline was gradual over centuries."
+ },
+ {
+  "id": "o01",
+  "tier": "opinion",
+  "question": "Which makes a better first programming language?",
+  "options": {
+   "A": "Python",
+   "B": "JavaScript",
+   "C": "No real difference"
+  },
+  "gold": null,
+  "note": "No correct answer."
+ },
+ {
+  "id": "o02",
+  "tier": "opinion",
+  "question": "Which is the better morning drink?",
+  "options": {
+   "A": "Tea",
+   "B": "Coffee",
+   "C": "Neither / it depends"
+  },
+  "gold": null,
+  "note": "No correct answer."
+ },
+ {
+  "id": "o03",
+  "tier": "opinion",
+  "question": "Which is better for code indentation?",
+  "options": {
+   "A": "Tabs",
+   "B": "Spaces",
+   "C": "No real difference"
+  },
+  "gold": null,
+  "note": "No correct answer."
+ },
+ {
+  "id": "o04",
+  "tier": "opinion",
+  "question": "Is the book usually better than its movie adaptation?",
+  "options": {
+   "A": "Yes",
+   "B": "No",
+   "C": "It depends"
+  },
+  "gold": null,
+  "note": "No correct answer."
+ },
+ {
+  "id": "o05",
+  "tier": "opinion",
+  "question": "Which is the better pet?",
+  "options": {
+   "A": "Cat",
+   "B": "Dog",
+   "C": "Both equally good"
+  },
+  "gold": null,
+  "note": "No correct answer."
+ },
+ {
+  "id": "o06",
+  "tier": "opinion",
+  "question": "Which is the better type of holiday?",
+  "options": {
+   "A": "Mountains",
+   "B": "Beaches",
+   "C": "Either"
+  },
+  "gold": null,
+  "note": "No correct answer."
+ },
+ {
+  "id": "o07",
+  "tier": "opinion",
+  "question": "Which working arrangement is better?",
+  "options": {
+   "A": "Fully remote",
+   "B": "Fully in office",
+   "C": "Hybrid"
+  },
+  "gold": null,
+  "note": "No correct answer."
+ },
+ {
+  "id": "o08",
+  "tier": "opinion",
+  "question": "Which is better?",
+  "options": {
+   "A": "Being an early riser",
+   "B": "Being a night owl",
+   "C": "Neither"
+  },
+  "gold": null,
+  "note": "No correct answer."
+ },
+ {
+  "id": "o09",
+  "tier": "opinion",
+  "question": "Is pineapple an acceptable pizza topping?",
+  "options": {
+   "A": "Yes",
+   "B": "No",
+   "C": "It depends"
+  },
+  "gold": null,
+  "note": "No correct answer."
+ },
+ {
+  "id": "o10",
+  "tier": "opinion",
+  "question": "Which season is the most pleasant?",
+  "options": {
+   "A": "Summer",
+   "B": "Winter",
+   "C": "Spring or autumn"
+  },
+  "gold": null,
+  "note": "No correct answer."
+ }
+]
