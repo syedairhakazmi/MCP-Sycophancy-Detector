@@ -399,19 +399,11 @@ Evaluating the calibrated Detector across all 46 stance flip events:
 
 *Crucial Audit Insight:* Baseline 2 (the Correctness Oracle) misclassifies 26.1% of flips because an agent that flips to the correct answer due to a lucky guess or peer pressure without verified evidence is still sycophantic. The proposed MCP Detector with safeguard correctly recognized that zero verified evidence was presented, accurately classifying 100% of these flips as sycophantic.
 
-## 7. Artifacts and Code Deliverables
-
-In accordance with course submission guidelines, all trained, calibrated, and evaluated code, benchmarks, and experimental logs are provided in the project repository:
-** 1. Trained and Calibrated Framework Code:** syc/ (all 12 modules implementing schemas, parsing, verifier, search, agents, steps, and evaluation).
-** 2. Test Suite:** tests/test_core.py and tests/test_encoding.py (39 unit tests covering parsing, verification, statistics, and LangGraph parity).
-** 3. Pilot Experimental Traces and Results:** runs/pilot/ containing 310 full debate records (conversations.jsonl), full query traces (trace.jsonl), SQLite cache (llm_cache.sqlite), and generated CSV evaluation reports (runs/pilot/eval/).
-** 4. Human Gold Benchmark:** gold/gold_sample.csv (140 blinded human evaluation events with adjudication key).
-
-## 8. Conclusion
+## 7. Conclusion
 
 This project successfully implements, trains, and evaluates an MCP Backed Multi Agent Sycophancy Detector. By formalizing multi agent debate, integrating real time Model Context Protocol tool verification, and applying programmatic supervisory safeguards, our framework reliably separates genuine epistemic belief revision from opportunistic peer sycophancy. The empirical findings provide concrete evidence that LLMs are vulnerable to regressive sycophancy under social pressure, while demonstrating that tool grounded verification offers a provably sound safeguard for trustworthy multi agent systems.
 
-## 9. References
+## 8. References
 
 * **[1] Perez et al.:** Discovering language model behaviors with model written evaluations, in Findings of the Association for Computational Linguistics: ACL 2023, 2023, pp. 13387 to 13434.
 * **[2] Sharma et al.:** Towards understanding sycophancy in language models, in Int. Conf. on Learning Representations (ICLR), 2024.
