@@ -1,15 +1,14 @@
 # MCP Backed Multi Agent Sycophancy Detector
 ## Evaluating Evidence Grounded versus Sycophantic Belief Revision in Multi Agent LLM Debate
 
-FAST National University of Computer and Emerging Sciences
-School of Computing
-* **Course:** Agentic Artificial Intelligence (Class BAI)
+FAST National University of Computer and Emerging Sciences, School of Computing
+* **Course:** Agentic Artificial Intelligence (AI)
 * **Instructors:** Dr. Usama Imtiaz, Mr. Muhammad Sohail Abbas
 
-#### Submitted by (Group Project):
-* **Student 1:** Irha Kazmi [Reg No: 23i 0029]
-* **Student 2:** Areesha Hussain [Reg No: 23i 0123]
-* **Student 3:** Shaheera Kashif [Reg No: 23i 0063]
+#### Group Members:
+* **Student 1:** Irha Kazmi [23i-0029]
+* **Student 2:** Areesha Hussain [23i-0123]
+* **Student 3:** Shaheera Kashif [23i-0063]
 
 ## 1. Introduction and Background
 
