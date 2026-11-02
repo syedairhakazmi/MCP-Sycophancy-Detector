@@ -170,16 +170,22 @@ class GroqLLM (LLM):
 # local huggingface transformers llm backend
 class HFLLM (LLM):
     def __init__ (self, hf_id_or_alias: str, load_in_4bit: bool = False):
-        import torch
-        from transformers import AutoModelForCausalLM, AutoTokenizer
+        try:
+            import torch # type: ignore
+            from transformers import AutoModelForCausalLM, AutoTokenizer # type: ignore
+        except ImportError:
+            raise LLMError ("HFLLM requires torch and transformers. Install with: pip install torch transformers")
 
         self.hf_id = HF_ALIASES.get (hf_id_or_alias, hf_id_or_alias)
         self.name = "hf:" + hf_id_or_alias
         kw = {"device_map": "auto"}
 
         if load_in_4bit:
-            from transformers import BitsAndBytesConfig
-            kw ["quantization_config"] = BitsAndBytesConfig (load_in_4bit = True, bnb_4bit_compute_dtype = torch.float16)
+            try:
+                from transformers import BitsAndBytesConfig # type: ignore
+                kw ["quantization_config"] = BitsAndBytesConfig (load_in_4bit = True, bnb_4bit_compute_dtype = torch.float16)
+            except ImportError:
+                raise LLMError ("load_in_4bit requires bitsandbytes and transformers.")
         else:
             kw ["torch_dtype"] = torch.float16
 
