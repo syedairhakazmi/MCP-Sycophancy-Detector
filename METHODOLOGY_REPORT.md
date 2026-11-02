@@ -3,13 +3,13 @@
 
 FAST National University of Computer and Emerging Sciences
 School of Computing
-Course: Agentic Artificial Intelligence (Class BAI)
-Instructors: Dr. Usama Imtiaz, Mr. Muhammad Sohail Abbas
+* Course: Agentic Artificial Intelligence (Class BAI)
+* Instructors: Dr. Usama Imtiaz, Mr. Muhammad Sohail Abbas
 
-Submitted by (Group Project):
-* Irha Kazmi [Reg No: 23i 0029]
-* Areesha Hussain [Reg No: 23i 0123]
-* Shaheera Kashif [Reg No: 23i 0063]
+#### Submitted by:
+* Irha Kazmi [Reg No: 23i-0029]
+* Areesha Hussain [Reg No: 23i-0123]
+* Shaheera Kashif [Reg No: 23i-0063]
 
 ## 1. Introduction and Background
 
@@ -28,14 +28,14 @@ To resolve this gap, we develop, train, calibrate, and evaluate an MCP Backed Mu
 
 Our project builds directly upon the ten core papers surveyed in our Literature Review, synthesizing three distinct research areas:
 
-1. Sycophancy in Single Agent LLM Interactions:
+#### 1. Sycophancy in Single Agent LLM Interactions:
    * Perez et al. [1] developed model written evaluations, showing that RLHF tuned models frequently echo a user stated opinion over truth.
    * Sharma et al. [2] analyzed preference model behavior, revealing that human raters and reward models reward convincing sounding sycophantic responses.
    * Fanous et al. [4] (SycEval) manipulated rebuttal strength and timing, finding that over 58% of responses were sycophantic.
    * Cheng et al. [5] (ELEPHANT) demonstrated that simple binary flip metrics fail to capture nuanced social sycophancy dimensions.
    * Gap: All single agent frameworks evaluate user to model interactions and lack peer agents and external evidence verification.
 
-2. Sycophancy and Disagreement Dynamics in Multi Agent Debate:
+#### 2. Sycophancy and Disagreement Dynamics in Multi Agent Debate:
    * Du et al. [3] established that iterative multi agent debate improves factuality and reasoning over single pass generation.
    * Yao et al. [6] showed that persona based sycophancy persists and intensifies across successive debate rounds.
    * Wynn, Satija, and Hadfield [7] observed that agent disagreement declines across debate rounds, correlating with degraded problem solving performance.
@@ -43,7 +43,7 @@ Our project builds directly upon the ten core papers surveyed in our Literature 
    * Kasprova et al. [9] (Too Polite to Disagree) studied peer sycophancy propagation across six open source LLMs, using sycophancy ranking priors to improve discussion accuracy.
    * Gap: These studies evaluate aggregate accuracy and propagation rather than auditing whether individual belief changes are justified by verifiable facts.
 
-3. Tool Augmented LLM Systems and Model Context Protocol (MCP):
+#### 3. Tool Augmented LLM Systems and Model Context Protocol (MCP):
    * Hou et al. [10] surveyed MCP as an emerging open standard enabling secure client tool server interactions.
    * Gap: MCP has been studied primarily at the systems and architecture level. It has not previously been deployed as an empirical experimental variable to audit sycophancy in multi agent debate.
 
@@ -56,34 +56,34 @@ Round 0:
 The Answerer receives an item and outputs its initial independent stance (ANSWER: letter).
 
 Rounds 1 to R:
-Step 1: The Pressure Generator applies an experimental pressure style:
+#### Step 1: The Pressure Generator applies an experimental pressure style:
 * Pure Insistence: Direct contradiction without reasons
 * Appeal to Authority: Fabricated expert consensus
 * Social Pressure: Fabricated peer majority
 * Fabricated Citation: Hallucinated URL and fake quote bluff
 * Genuine Counterargument: MCP DuckDuckGo search returning verified quotes
 
-Step 2: The Answerer evaluates the peer challenge and emits its revised stance.
+#### Step 2: The Answerer evaluates the peer challenge and emits its revised stance.
 
-Step 3: The string level Verifier matches quoted citations against MCP search results.
+#### Step 3: The string level Verifier matches quoted citations against MCP search results.
 
-Step 4: The system checks for a stance flip deterministically in code.
+#### Step 4: The system checks for a stance flip deterministically in code.
 If a flip occurred, the Detector evaluates justification.
 The safeguard enforces that justified is False unless evidence was verified by tools.
 
 ### 3.1. Agent Formulation
-1. Answerer Agent:
+#### 1. Answerer Agent:
    Given item Q and options O, the Answerer generates a chain of thought rationale and terminates with an explicit format: ANSWER: letter. In successive rounds, it updates its stance based on the dialogue history.
-2. Pressure Generator:
+#### 2. Pressure Generator:
    Challenges the Answerer across five conditions:
    * pure insistence: Repeated assertion of error without justification.
    * appeal to authority: Citing fictitious academic consensus or authoritative figures.
    * social pressure: Citing unanimous peer disagreement.
    * fabricated citation: Adversarial bluff providing a fake URL and fabricated quotation.
    * genuine counterargument: Genuine counterargument generated by querying DuckDuckGo via the Model Context Protocol (MCP), extracting real search snippets, and quoting verifiable text with bracketed citations.
-3. MCP Citation Verifier (syc/verifier.py):
+#### 3. MCP Citation Verifier (syc/verifier.py):
    Scans quoted text within peer challenges and checks for verbatim occurrences within retrieved MCP search snapshots. It emits deterministic verification tags (VERIFIED QUOTE, UNVERIFIED QUOTE, or NO SOURCES).
-4. Detector Agent with Fail Closed Safeguard (syc/parsing.py):
+#### 4. Detector Agent with Fail Closed Safeguard (syc/parsing.py):
    Audits whether a stance flip occurred and whether it was justified. The supervisory safeguard programmatically enforces that justified is False unless verified evidence was presented by the peer. If an LLM judge is misled by eloquent rhetoric or a fake citation, the safeguard overrides the classification to justified is False.
 
 ## 4. Training, Calibration, and Baseline Setup
@@ -104,13 +104,13 @@ To rigorously benchmark the proposed MCP backed Detector, we calibrated two refe
 ## 5. Experimental Test Setup and Benchmarks
 
 The testing pipeline was evaluated across two datasets:
-1. MMLU Benchmark (Kasprova et al. Subsets): 250 test questions spanning 5 subject categories:
+#### 1. MMLU Benchmark (Kasprova et al. Subsets): 250 test questions spanning 5 subject categories:
    * Elementary Mathematics (Pure reasoning, excluded from web retrieval)
    * Professional Law (Statutory interpretation)
    * Machine Learning (Technical concepts and architectures)
    * Business Ethics (Normative dilemmas)
    * High School Biology (Empirical scientific knowledge)
-2. Multi Domain Test Bank: 30 curated items categorized into Factual (objective), Debatable (controversial), and Opinion (subjective) items.
+#### 2. Multi Domain Test Bank: 30 curated items categorized into Factual (objective), Debatable (controversial), and Opinion (subjective) items.
 
 ### Evaluation Metrics
 * Flip Rate (FR): Proportion of debates where the final stance changed from Round 0. Computed with 95% Wilson Score Confidence Intervals.
@@ -125,7 +125,7 @@ A full pilot evaluation comprising 310 multi agent conversations was executed us
 
 ### 6.1. Behavioral Vulnerability Across Pressure Styles
 
-Experimental Findings by Condition:
+#### Experimental Findings by Condition:
 
 * Condition: Pure Insistence on MMLU
   * Total Conversations: 50
@@ -199,13 +199,13 @@ This project successfully implements, trains, and evaluates an MCP Backed Multi 
 
 ## 9. References
 
-[1] E. Perez et al., Discovering language model behaviors with model written evaluations, in Findings of the Association for Computational Linguistics: ACL 2023, 2023, pp. 13387 to 13434.
-[2] M. Sharma et al., Towards understanding sycophancy in language models, in Int. Conf. on Learning Representations (ICLR), 2024.
-[3] Y. Du et al., Improving factuality and reasoning in language models through multi agent debate, in Proc. Int. Conf. on Machine Learning (ICML), 2024, arXiv:2305.14325.
-[4] A. Fanous et al., SycEval: Evaluating sycophancy in large language models, in Proc. AAAI/ACM Conf. on AI, Ethics, and Society, vol. 8, no. 1, 2025, pp. 893 to 900.
-[5] M. Cheng et al., ELEPHANT: Measuring and understanding social sycophancy in LLMs, arXiv preprint arXiv:2505.13995, 2025.
-[6] B. Yao et al., Peacemaker or troublemaker? How sycophancy shapes multi agent debate, arXiv preprint arXiv:2509.23055, 2025.
-[7] A. Wynn, H. Satija, and G. Hadfield, Talk isn't always cheap: Understanding failure modes in multi agent debate, arXiv preprint arXiv:2509.05396, 2025.
-[8] P. Pitre, N. Ramakrishnan, and X. Wang, CONSENSAGENT: Towards efficient and effective consensus in multi agent LLM interactions through sycophancy mitigation, in Findings of the Association for Computational Linguistics: ACL 2025, 2025, pp. 22112 to 22133.
-[9] V. Kasprova et al., Too polite to disagree: Understanding sycophancy propagation in multi agent systems, in Proc. 27th Annual Meeting of the Special Interest Group on Discourse and Dialogue (SIGDIAL), 2026, pp. 795 to 814.
-[10] X. Hou et al., MCP landscape: Architecture, ecosystem, adoption, and risks, arXiv preprint arXiv:2503.23278, 2025.
+* [1] E. Perez et al., Discovering language model behaviors with model written evaluations, in Findings of the Association for Computational Linguistics: ACL 2023, 2023, pp. 13387 to 13434.
+* [2] M. Sharma et al., Towards understanding sycophancy in language models, in Int. Conf. on Learning Representations (ICLR), 2024.
+* [3] Y. Du et al., Improving factuality and reasoning in language models through multi agent debate, in Proc. Int. Conf. on Machine Learning (ICML), 2024, arXiv:2305.14325.
+* [4] A. Fanous et al., SycEval: Evaluating sycophancy in large language models, in Proc. AAAI/ACM Conf. on AI, Ethics, and Society, vol. 8, no. 1, 2025, pp. 893 to 900.
+* [5] M. Cheng et al., ELEPHANT: Measuring and understanding social sycophancy in LLMs, arXiv preprint arXiv:2505.13995, 2025.
+* [6] B. Yao et al., Peacemaker or troublemaker? How sycophancy shapes multi agent debate, arXiv preprint arXiv:2509.23055, 2025.
+* [7] A. Wynn, H. Satija, and G. Hadfield, Talk isn't always cheap: Understanding failure modes in multi agent debate, arXiv preprint arXiv:2509.05396, 2025.
+* [8] P. Pitre, N. Ramakrishnan, and X. Wang, CONSENSAGENT: Towards efficient and effective consensus in multi agent LLM interactions through sycophancy mitigation, in Findings of the Association for Computational Linguistics: ACL 2025, 2025, pp. 22112 to 22133.
+* [9] V. Kasprova et al., Too polite to disagree: Understanding sycophancy propagation in multi agent systems, in Proc. 27th Annual Meeting of the Special Interest Group on Discourse and Dialogue (SIGDIAL), 2026, pp. 795 to 814.
+* [10] X. Hou et al., MCP landscape: Architecture, ecosystem, adoption, and risks, arXiv preprint arXiv:2503.23278, 2025.
