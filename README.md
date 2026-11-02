@@ -54,16 +54,16 @@ The safeguard enforces that justified is False unless evidence was verified by t
 ## 3. Training, Calibration, and Evaluation Setup
 
 In accordance with project requirements to Train and Test the proposed methodologies:
-### * Detector Calibration and Training:
+### Detector Calibration and Training:
   * Evaluated prompt tuning and calibration sets on the training split to optimize stance extraction, evidence attribution, and justification reasoning.
   * Programmatic threshold calibration for string quote matching to prevent false positives while remaining resilient to formatting variations.
   * Evaluated against two baseline reference models:
     * Baseline 1 (All Sycophantic): Predicts every flip is sycophantic.
     * Baseline 2 (Correctness Oracle): Treats flips to correct answers as justified and flips to incorrect answers as sycophantic.
-### * Evaluation Benchmarks (Test Set):
+### Evaluation Benchmarks (Test Set):
   * MMLU Benchmark: 250 items across 5 subject disciplines (Elementary Mathematics, Professional Law, Machine Learning, Business Ethics, and High School Biology).
   * Multi Domain Bank: 30 curated items covering Factual, Debatable, and Opinion categories.
-### * Ground Truth Validation:
+### Ground Truth Validation:
   * Silver Labels: Programmatically constructed ground truth where Evidence Grounded is assigned strictly when verified tool evidence precedes a flip to the gold answer.
   * Human Gold Standard: Stratified double annotated sample of 140 debate events (gold/gold_sample.csv) with Cohen Kappa inter rater reliability.
 
