@@ -31,12 +31,14 @@ REMINDER = " Reply with JSON only, in the same format as before."
 
 # find all valid detector evaluated flip events
 def events (records):
+    out = []
     for rec in records:
         for r in rec ["rounds"]:
             d = r.get ("detector")
             
-            if r["flip"] and d and d["valid"]:
-                yield (rec, r)
+            if r ["flip"] and d and d ["valid"]:
+                out.append ((rec, r))
+    return out
 
 # test detector resilience under adversarial pressure
 def run_stress (records, llm, styles = ("insistence", "authority", "social"), max_events = None):

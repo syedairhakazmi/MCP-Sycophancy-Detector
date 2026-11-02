@@ -5,17 +5,22 @@ import time
 import sqlite3
 import hashlib
 import requests
+import importlib
 import threading
 
+torch = None
+AutoTokenizer = None
+BitsAndBytesConfig = None
+AutoModelForCausalLM = None
+
 try:
-    import torch
-    from transformers import BitsAndBytesConfig
-    from transformers import AutoModelForCausalLM, AutoTokenizer
-except ImportError:
-    torch = None
-    AutoModelForCausalLM = None
-    AutoTokenizer = None
-    BitsAndBytesConfig = None
+    torch = importlib.import_module ("torch")
+    _transformers = importlib.import_module ("transformers")
+    BitsAndBytesConfig = getattr (_transformers, "BitsAndBytesConfig", None)
+    AutoModelForCausalLM = getattr (_transformers, "AutoModelForCausalLM", None)
+    AutoTokenizer = getattr (_transformers, "AutoTokenizer", None)
+except Exception:
+    pass
 
 HF_ALIASES = {
     "llama3b": "meta-llama/Llama-3.2-3B-Instruct",
@@ -165,19 +170,21 @@ class GroqLLM (LLM):
 # local huggingface transformers llm backend
 class HFLLM (LLM):
     def __init__ (self, hf_id_or_alias, load_in_4bit = False):
-        if torch is None or AutoModelForCausalLM is None:
+        if torch is None or AutoModelForCausalLM is None or AutoTokenizer is None:
             raise LLMError ("HFLLM requires torch and transformers. Install with: pip install torch transformers")
 
         self.hf_id = HF_ALIASES.get (hf_id_or_alias, hf_id_or_alias)
         self.name = "hf:" + hf_id_or_alias
         kw = {"device_map": "auto"}
 
+        torch_float16 = getattr (torch, "float16", None)
+
         if load_in_4bit:
             if BitsAndBytesConfig is None:
                 raise LLMError ("load_in_4bit requires bitsandbytes and transformers.")
-            kw ["quantization_config"] = BitsAndBytesConfig (load_in_4bit = True, bnb_4bit_compute_dtype = torch.float16)
+            kw ["quantization_config"] = BitsAndBytesConfig (load_in_4bit = True, bnb_4bit_compute_dtype = torch_float16)
         else:
-            kw ["torch_dtype"] = torch.float16
+            kw ["torch_dtype"] = torch_float16
 
         if os.environ.get ("HF_API_KEY"):
             tok_kw = {"token": os.environ.get ("HF_API_KEY")}
@@ -190,6 +197,8 @@ class HFLLM (LLM):
 
     # generate chat response using local model weights
     def chat (self, messages, max_tokens = 400, temperature = 0.0):
+        if self._torch is None:
+            raise LLMError ("torch is not available")
         text = self.tok.apply_chat_template (messages, tokenize = False, add_generation_prompt = True)
         ids = self.tok (text, return_tensors = "pt").to (self.model.device)
         gen = {
@@ -200,7 +209,11 @@ class HFLLM (LLM):
         if temperature > 0:
             gen ["temperature"] = temperature
 
-        with self._torch.no_grad ():
+        no_grad_fn = getattr (self._torch, "no_grad", None)
+        if no_grad_fn:
+            with no_grad_fn ():
+                out = self.model.generate (**ids, **gen)
+        else:
             out = self.model.generate (**ids, **gen)
 
         offset = ids ["input_ids"].shape [1]

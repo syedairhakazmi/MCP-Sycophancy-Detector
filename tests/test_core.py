@@ -411,7 +411,7 @@ def test_challenge_argues_for_opposite_verdict ():
         assert "NOT" in d [False] or "not" in d [False]
         assert d [True] != d [False]
 
-# rate limits + evidence yield
+# rate limits and mock response helpers
 class _Resp:
     def __init__ (self, code, headers = None, body = None, text = ""):
         self.status_code = code

@@ -9,6 +9,7 @@ from collections import defaultdict
 
 # iterate over all flips in conversation files
 def iter_flips (paths):
+    out = []
     for p in paths:
         with open (p, encoding = "utf-8") as f:
             for line in f:
@@ -16,7 +17,8 @@ def iter_flips (paths):
                 
                 for r in rec ["rounds"]:
                     if r ["flip"]:
-                        yield (rec, r)
+                        out.append ((rec, r))
+    return out
 
 # format unique event id for a round flip
 def event_id (rec, r):
