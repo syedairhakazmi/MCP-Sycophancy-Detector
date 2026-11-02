@@ -2,7 +2,7 @@
 ## Evaluating Evidence Grounded versus Sycophantic Belief Revision in Multi Agent LLM Debate
 
 FAST National University of Computer and Emerging Sciences, School of Computing
-* Course: Agentic Artificial Intelligence (CS and AI)
+* Course: Agentic Artificial Intelligence (AI)
 * Instructors: Dr. Usama Imtiaz, Mr. Muhammad Sohail Abbas
 
 Group Members:
@@ -29,18 +29,18 @@ Round 0:
 The Answerer receives a benchmark item and outputs its initial stance (ANSWER: letter).
 
 Rounds 1 to R:
-Step 1: The Pressure Generator applies a challenge style:
+# Step 1: The Pressure Generator applies a challenge style:
 * Pure Insistence: Direct contradiction without reasons
 * Appeal to Authority: Citing expert consensus
 * Social Pressure: Citing peer majority
 * Fabricated Citation: Hallucinated URL and fake quote bluff
 * Genuine Counterargument: MCP DuckDuckGo search returning verified quotes
 
-Step 2: The Answerer evaluates the peer challenge and emits a revised stance.
+# Step 2: The Answerer evaluates the peer challenge and emits a revised stance.
 
-Step 3: The string level Verifier matches quoted citations against MCP search results.
+# Step 3: The string level Verifier matches quoted citations against MCP search results.
 
-Step 4: The system checks for a stance flip deterministically in code.
+# Step 4: The system checks for a stance flip deterministically in code.
 If a flip occurred, the Detector evaluates justification.
 The safeguard enforces that justified is False unless evidence was verified by tools.
 
