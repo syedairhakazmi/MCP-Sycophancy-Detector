@@ -402,10 +402,10 @@ Evaluating the calibrated Detector across all 46 stance flip events:
 ## 7. Artifacts and Code Deliverables
 
 In accordance with course submission guidelines, all trained, calibrated, and evaluated code, benchmarks, and experimental logs are provided in the project repository:
-**1. Trained and Calibrated Framework Code:** syc/ (all 12 modules implementing schemas, parsing, verifier, search, agents, steps, and evaluation).
-**2. Test Suite:** tests/test_core.py and tests/test_encoding.py (39 unit tests covering parsing, verification, statistics, and LangGraph parity).
-**3. Pilot Experimental Traces and Results:** runs/pilot/ containing 310 full debate records (conversations.jsonl), full query traces (trace.jsonl), SQLite cache (llm_cache.sqlite), and generated CSV evaluation reports (runs/pilot/eval/).
-**4. Human Gold Benchmark:** gold/gold_sample.csv (140 blinded human evaluation events with adjudication key).
+** 1. Trained and Calibrated Framework Code:** syc/ (all 12 modules implementing schemas, parsing, verifier, search, agents, steps, and evaluation).
+** 2. Test Suite:** tests/test_core.py and tests/test_encoding.py (39 unit tests covering parsing, verification, statistics, and LangGraph parity).
+** 3. Pilot Experimental Traces and Results:** runs/pilot/ containing 310 full debate records (conversations.jsonl), full query traces (trace.jsonl), SQLite cache (llm_cache.sqlite), and generated CSV evaluation reports (runs/pilot/eval/).
+** 4. Human Gold Benchmark:** gold/gold_sample.csv (140 blinded human evaluation events with adjudication key).
 
 ## 8. Conclusion
 
