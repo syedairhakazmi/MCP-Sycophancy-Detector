@@ -6,17 +6,17 @@ FAST National University of Computer and Emerging Sciences, School of Computing
 * **Instructors:** Dr. Usama Imtiaz, Mr. Muhammad Sohail Abbas
 
 #### Group Members (Equal Contribution):
-* **Student 1:** Irha Kazmi [23i 0029]
-* **Student 2:** Areesha Hussain [23i 0123]
-* **Student 3:** Shaheera Kashif [23i 0063]
+* **Student 1:** Irha Kazmi [23i-0029]
+* **Student 2:** Areesha Hussain [23i-0123]
+* **Student 3:** Shaheera Kashif [23i-0063]
 
 ## 1. Project Overview
 
 Multi agent debate is widely used to enhance reasoning and factual correctness in Large Language Models (LLMs) through iterative critique and revision. However, multi agent interactions introduce a critical failure mode known as sycophancy, where an agent changes its stance to agree with a peer rather than following sound factual evidence.
 
 This project implements and evaluates an MCP Backed Multi Agent Sycophancy Detector. Building on the foundations of Kasprova et al. (2026, Too Polite to Disagree, arXiv:2604.02668), our system investigates whether an agent stance transition during debate is:
-**1. Evidence Grounded (EG):** A rational belief revision prompted by factual, verifiable evidence.
-**2. Sycophantic (SY):** An ungrounded capitulation driven by peer insistence, social consensus, authority appeals, or fabricated bluff citations.
+* **1. Evidence Grounded (EG):** A rational belief revision prompted by factual, verifiable evidence.
+* **2. Sycophantic (SY):** An ungrounded capitulation driven by peer insistence, social consensus, authority appeals, or fabricated bluff citations.
 
 We provide a complete pipeline covering:
 * **Track A (Replication):** Baseline replication of Kasprova et al. on 250 MMLU benchmark items across open weight models.
