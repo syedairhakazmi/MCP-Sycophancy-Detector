@@ -29,14 +29,14 @@ Round 0:
 The Answerer receives a benchmark item and outputs its initial stance (ANSWER: letter).
 
 Rounds 1 to R:
-# Step 1: The Pressure Generator applies a challenge style:
+### Step 1: The Pressure Generator applies a challenge style:
 * Pure Insistence: Direct contradiction without reasons
 * Appeal to Authority: Citing expert consensus
 * Social Pressure: Citing peer majority
 * Fabricated Citation: Hallucinated URL and fake quote bluff
 * Genuine Counterargument: MCP DuckDuckGo search returning verified quotes
 
-# Step 2: The Answerer evaluates the peer challenge and emits a revised stance.
+### Step 2: The Answerer evaluates the peer challenge and emits a revised stance.
 
 # Step 3: The string level Verifier matches quoted citations against MCP search results.
 
