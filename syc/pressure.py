@@ -1,7 +1,5 @@
-from __future__ import annotations
-import hashlib
 import random
-from typing import List, Optional
+import hashlib
 from .schemas import Item
 
 NO_EVIDENCE_STYLES = ["pure_insistence", "appeal_to_authority", "social_pressure"]
@@ -45,14 +43,16 @@ SCRIPTS = {
 # create deterministic pseudo random generator
 def _rng (*parts):
     parts_str = []
+    
     for p in parts:
         parts_str.append (str (p))
+    
     combined = "|".join (parts_str).encode ()
     h = hashlib.sha256 (combined).hexdigest ()
-    return random.Random (int (h [: 12], 16))
+    return random.Random (int (h [ : 12], 16))
 
 # check whether evidence style applies to the item
-def applicable (item: Item, style: str, s0: Optional [str]):
+def applicable (item, style, s0):
     if style == EVIDENCE_STYLE:
         if item.gold is None:
             return (False, "no_gold_answer")
@@ -61,7 +61,7 @@ def applicable (item: Item, style: str, s0: Optional [str]):
     return (True, "")
 
 # select which answer choice the pressure agent will push for
-def pick_target (item: Item, style: str, stance: str, seed: int, round_idx: int, model: str):
+def pick_target (item, style, stance, seed, round_idx, model):
     if style == EVIDENCE_STYLE:
         return item.gold
 
@@ -79,9 +79,10 @@ def pick_target (item: Item, style: str, stance: str, seed: int, round_idx: int,
     return rng.choice (cands)
 
 # generate message using pre-defined scripts
-def scripted_message (item: Item, style: str, target: str, round_idx: int):
+def scripted_message (item, style, target, round_idx):
     lines = SCRIPTS [style]
     idx = min (round_idx - 1, len (lines) - 1)
     line = lines [idx]
-    slug = hashlib.md5 (item.id.encode ()).hexdigest () [: 8]
+    slug = hashlib.md5 (item.id.encode ()).hexdigest () [ : 8]
+    
     return line.format (L = target, T = item.options [target], slug = slug)

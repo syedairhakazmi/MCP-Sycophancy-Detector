@@ -82,23 +82,17 @@ Directory Layout:
 ## 5. Execution Guide
 
 1. Environment Setup:
-Activate your Python environment and install the required packages:
-pip install -r requirements.txt
+Activate your Python environment and install the required packages using pip install requirements.
 
 2. Run Unit Tests:
 Run the complete test suite to verify all components:
 pytest
 
 3. Estimate Calls:
-Estimate total API calls before running an experiment:
-python -m syc.runner plan --source both --n-per-subject 10 --rounds 3
+Estimate total API calls before running an experiment using the plan subcommand in the runner module.
 
 4. Run Multi Agent Debate and Evaluation:
-Execute multi agent debate with MCP tool snapshots:
-python -m syc.runner run --source both --n-per-subject 10 --rounds 3 --answerer groq:openai/gpt-oss-20b --detector groq:openai/gpt-oss-120b --search mcp --snapshot runs/shared_snap.json --out runs/pilot
-
-Evaluate run results against statistical benchmarks:
-python -m syc.evaluate --runs runs/pilot/conversations.jsonl --gold gold/gold_sample.csv
+Execute multi agent debate with MCP tool snapshots and evaluate run results against statistical benchmarks using the runner and evaluation modules or the replication scripts in scripts/.
 
 ## 6. Summary of Experimental Results
 

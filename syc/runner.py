@@ -1,49 +1,39 @@
-from __future__ import annotations
-import argparse
-import json
 import os
-import platform
-import subprocess
 import sys
+import json
 import time
 import uuid
-from typing import List
-from . import __version__, utf8_stdout
-from .items import PAPER_SUBJECTS, check_items, load_bank, load_mmlu
-from .llm import (
-    BudgetExceeded,
-    CallBudget,
-    DiskCache,
-    Instrumented,
-    LLMError,
-    LLMFatal,
-    RateLimitExhausted,
-    Tracer,
-    get_llm,
-)
-from .pressure import ALL_STYLES, DEFAULT_STYLES, EVIDENCE_STYLE
+import argparse
+import platform
+import subprocess
 from .schemas import Item
-from .search import MCPSearch, SnapshotSearch, StubSearch
+from . import __version__, utf8_stdout
 from .steps import Ctx, build_graph, run_graph, run_loop
+from .search import MCPSearch, SnapshotSearch, StubSearch
+from .pressure import ALL_STYLES, DEFAULT_STYLES, EVIDENCE_STYLE
+from .items import PAPER_SUBJECTS, check_items, load_bank, load_mmlu
+from .llm import BudgetExceeded, CallBudget, DiskCache, Instrumented, LLMError, LLMFatal, RateLimitExhausted, Tracer, get_llm
 
 # run git command to get commit hash
-def _git (cmd: List [str], cwd = None):
+def _git (cmd, cwd = None):
     try:
         args = ["git"] + cmd
-        out = subprocess.check_output (args, cwd = cwd, stderr = subprocess.DEVNULL, text = True)
-        return out.strip ()
+        proc = subprocess.run (args, cwd = cwd, capture_output = True, text = True)
+        return proc.stdout.strip ()
     except Exception:
         return ""
 
 # add common command line arguments
-def add_common (p: argparse.ArgumentParser):
+def add_common (p):
     p.add_argument ("--source", choices = ["mmlu", "bank", "both"], default = "both")
     p.add_argument ("--base-dir", default = "third_party/kasprova")
     p.add_argument ("--mmlu-csv", default = None)
     p.add_argument ("--bank", default = "data/question_bank.json")
     p.add_argument ("--subjects", nargs = "+", default = PAPER_SUBJECTS)
     p.add_argument ("--n-per-subject", type = int, default = None)
+    
     default_styles_str = ",".join (DEFAULT_STYLES)
+    
     p.add_argument ("--styles", default = default_styles_str)
     p.add_argument ("--rounds", type = int, default = 3)
     p.add_argument ("--no-genuine-subjects", nargs = "*", default = ["elementary_mathematics"])
@@ -51,7 +41,7 @@ def add_common (p: argparse.ArgumentParser):
 
 # load questions according to arguments
 def build_items (a):
-    items: List [Item] = []
+    items = []
     if a.source == "mmlu" or a.source == "both":
         if a.mmlu_csv:
             csv_path = a.mmlu_csv
@@ -71,9 +61,10 @@ def build_items (a):
     return items
 
 # build schedule pairing each question with pressure styles
-def schedule (items: List [Item], styles: List [str], skip_genuine_subjects):
+def schedule (items, styles, skip_genuine_subjects):
     out = []
     skip_set = set (skip_genuine_subjects or [])
+    
     for it in items:
         for st in styles:
             if st == EVIDENCE_STYLE and it.subject in skip_set:
@@ -104,7 +95,7 @@ def cmd_plan (a):
     print ("Tip: check your Groq free-tier requests/minute and requests/day, then size --n-per-subject.")
 
 # instantiate search backend based on mode
-def make_search (mode: str, snapshot: str):
+def make_search (mode, snapshot):
     if mode == "mcp":
         return SnapshotSearch (MCPSearch (), snapshot, offline = False)
     if mode == "stub":
@@ -123,7 +114,7 @@ def cmd_run (a):
         assert s in ALL_STYLES, "unknown style " + str (s)
 
     os.makedirs (a.out, exist_ok = True)
-    run_id = uuid.uuid4 ().hex [: 8]
+    run_id = uuid.uuid4 ().hex [ : 8]
     cache = DiskCache (os.path.join (a.out, "llm_cache.sqlite"))
     tracer = Tracer (os.path.join (a.out, "trace.jsonl"), run_id)
     budget = CallBudget (a.max_calls)
@@ -133,12 +124,7 @@ def cmd_run (a):
         q_first_line = it.question.split ("\n") [0]
         lookup [q_first_line] = it.gold
 
-    kw = {
-        "reasoning_effort": a.reasoning_effort,
-        "load_in_4bit": a.load_in_4bit,
-        "max_wait": a.max_wait,
-        "mock_kwargs": {"gold_lookup": lookup.get},
-    }
+    kw = {"reasoning_effort": a.reasoning_effort, "load_in_4bit": a.load_in_4bit, "max_wait": a.max_wait, "mock_kwargs": {"gold_lookup": lookup.get}}   
 
     _models = {}
 
@@ -147,18 +133,15 @@ def cmd_run (a):
             _models [spec] = get_llm (spec, **kw)
         return Instrumented (_models [spec], role, cache, tracer, budget, max_tokens = max_tokens)
 
-    answerer = mk (a.answerer, "answerer", 300)
+    answerer = mk (a.answerer, "answerer", 400)
     if a.pressure:
-        press_spec = a.pressure
+        pressure = mk (a.pressure, "pressure", 250)
     else:
-        press_spec = a.answerer
-    pressure = mk (press_spec, "pressure", 250)
-
+        pressure = answerer
     if a.detector:
-        det_spec = a.detector
+        detector = mk (a.detector, "detector", 300)
     else:
-        det_spec = a.answerer
-    detector = mk (det_spec, "detector", 300)
+        detector = answerer
 
     if a.snapshot:
         snapshot = a.snapshot
@@ -167,10 +150,10 @@ def cmd_run (a):
     search = make_search (a.search, snapshot)
 
     ctx = Ctx (
-        answerer,
-        pressure,
-        detector,
-        search,
+        answerer = answerer,
+        pressure = pressure,
+        detector = detector,
+        search = search,
         rounds = a.rounds,
         detect_mode = a.detect,
         detector_input = a.detector_input,
@@ -209,7 +192,7 @@ def cmd_run (a):
         json.dump (cfg, f, indent = 1, default = str)
 
     sched = schedule (items, styles, a.no_genuine_subjects)
-    print (f"[{run_id}] {len (sched)} conversations scheduled, {len (done)} already done (resume).")
+    print (f"[{run_id}] starting run: {len (sched)} conversations, {len (done)} already completed")
     t0 = time.time ()
 
     try:
@@ -228,7 +211,7 @@ def cmd_run (a):
             except (BudgetExceeded, RateLimitExhausted, LLMFatal):
                 raise
             except LLMError as e:
-                err_text = str (e) [: 160]
+                err_text = str (e) [ : 160]
                 print (f"  ! {cid}: {type (e).__name__}: {err_text} (recorded as aborted; will be retried on resume)", flush = True)
                 rec = {
                     "conv_id": cid,
@@ -243,7 +226,7 @@ def cmd_run (a):
                     "seed": a.seed,
                     "n_rounds": a.rounds,
                     "status": "aborted:llm_error",
-                    "status_detail": {"reason": type (e).__name__ + ": " + str (e) [: 300]},
+                    "status_detail": {"reason": type (e).__name__ + ": " + str (e) [ : 300]},
                     "s0": None,
                     "s0_valid": False,
                     "initial_correct": None,
@@ -287,7 +270,7 @@ def main (argv = None):
     p2.add_argument ("--search", choices = ["mcp", "stub", "offline", "none"], default = "mcp")
     p2.add_argument ("--snapshot", default = None)
     p2.add_argument ("--k-results", type = int, default = 5)
-    p2.add_argument ("--query-mode", choices = ["llm", "template"], default = "llm")
+    p2.add_argument ("--query-mode", choices = ["llm", "heuristic", "template"], default = "llm")
     p2.add_argument ("--max-wait", type = float, default = 300.0)
     p2.add_argument ("--engine", choices = ["loop", "langgraph"], default = "langgraph")
     p2.add_argument ("--max-calls", type = int, default = None)

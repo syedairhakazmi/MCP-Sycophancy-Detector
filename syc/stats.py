@@ -1,37 +1,45 @@
-from __future__ import annotations
 import math
 from collections import Counter
-from typing import Dict, List, Sequence, Tuple
 
 # calculate point estimate and wilson confidence interval
-def wilson (k: int, n: int, z: float = 1.96):
+def wilson (k, n, z = 1.96):
     if n == 0:
         return (float ("nan"), float ("nan"), float ("nan"))
+    
     p = k / n
     d = 1.0 + (z * z) / n
     c = (p + (z * z) / (2.0 * n)) / d
     h = (z * math.sqrt (p * (1.0 - p) / n + (z * z) / (4.0 * n * n))) / d
+    
     return (p, max (0.0, c - h), min (1.0, c + h))
 
 # calculate exact mcnemar test p-value
-def mcnemar_exact (b: int, c: int):
+def mcnemar_exact (b, c):
     n = b + c
+    
     if n == 0:
         return 1.0
+    
     k = min (b, c)
     tail_sum = 0
+    
     for i in range (0, k + 1):
         tail_sum = tail_sum + math.comb (n, i)
     tail = tail_sum / (2 ** n)
+    
     return min (1.0, 2.0 * tail)
 
+def _pval_val (kv):
+    return kv [1]
+
 # holm-bonferroni adjustment for multiple testing p-values
-def holm (pvals: Dict [str, float]):
-    items = sorted (pvals.items (), key = lambda kv: kv [1])
+def holm (pvals):
+    items = sorted (pvals.items (), key = _pval_val)
     m = len (items)
     out = {}
     running = 0.0
     i = 0
+    
     for k, p in items:
         adjusted = (m - i) * p
         step_val = min (1.0, adjusted)
@@ -41,15 +49,16 @@ def holm (pvals: Dict [str, float]):
     return out
 
 # calculate cohen kappa score for agreement
-def cohen_kappa (a: Sequence, b: Sequence):
+def cohen_kappa (a, b):
     assert len (a) == len (b)
     n = len (a)
+    
     if n == 0:
         return float ("nan")
 
     matches = 0
-    for x, y in zip (a, b):
-        if x == y:
+    for i in range (len (a)):
+        if a [i] == b [i]:
             matches = matches + 1
     po = matches / n
 
@@ -67,13 +76,15 @@ def cohen_kappa (a: Sequence, b: Sequence):
     return (po - pe) / (1.0 - pe)
 
 # calculate precision, recall, and f1 scores
-def prf (y_true: Sequence, y_pred: Sequence, labels: List [str]):
+def prf (y_true, y_pred, labels):
     out = {}
     for l in labels:
         tp = 0
         fp = 0
         fn = 0
-        for t, p in zip (y_true, y_pred):
+        for i in range (len (y_true)):
+            t = y_true [i]
+            p = y_pred [i]
             if t == l and p == l:
                 tp = tp + 1
             if t != l and p == l:
@@ -111,8 +122,8 @@ def prf (y_true: Sequence, y_pred: Sequence, labels: List [str]):
     out ["macro_f1"] = {"f1": macro_f1}
 
     correct_count = 0
-    for t, p in zip (y_true, y_pred):
-        if t == p:
+    for i in range (len (y_true)):
+        if y_true [i] == y_pred [i]:
             correct_count = correct_count + 1
 
     if len (y_true) > 0:
@@ -124,15 +135,17 @@ def prf (y_true: Sequence, y_pred: Sequence, labels: List [str]):
     return out
 
 # build confusion matrix between true and predicted labels
-def confusion (y_true: Sequence, y_pred: Sequence, labels: List [str]):
+def confusion (y_true, y_pred, labels):
     matrix = {}
+    
     for t in labels:
         row = {}
         for p in labels:
             count = 0
-            for a, b in zip (y_true, y_pred):
-                if a == t and b == p:
+            for i in range (len (y_true)):
+                if y_true [i] == t and y_pred [i] == p:
                     count = count + 1
             row [p] = count
         matrix [t] = row
+    
     return matrix

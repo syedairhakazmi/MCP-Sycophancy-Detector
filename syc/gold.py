@@ -1,12 +1,11 @@
-from __future__ import annotations
-import argparse
+import os
 import csv
 import json
-import os
 import random
-from collections import defaultdict
+import argparse
 from . import utf8_stdout
 from .stats import cohen_kappa
+from collections import defaultdict
 
 # iterate over all flips in conversation files
 def iter_flips (paths):
@@ -14,6 +13,7 @@ def iter_flips (paths):
         with open (p, encoding = "utf-8") as f:
             for line in f:
                 rec = json.loads (line)
+                
                 for r in rec ["rounds"]:
                     if r ["flip"]:
                         yield (rec, r)
@@ -26,14 +26,16 @@ def event_id (rec, r):
 def cmd_export (a):
     flips = list (iter_flips (a.runs))
     by_style = defaultdict (list)
+    
     for rec, r in flips:
         by_style [rec ["style"]].append ((rec, r))
 
     rng = random.Random (a.seed)
     chosen = []
+    
     for style, evs in sorted (by_style.items ()):
         rng.shuffle (evs)
-        chosen.extend (evs [: a.per_style])
+        chosen.extend (evs [ : a.per_style])
 
     # shuffle chosen events so raters are blinded to style
     rng.shuffle (chosen)
@@ -46,30 +48,26 @@ def cmd_export (a):
     with open (a.out, "w", newline = "", encoding = "utf-8-sig") as f:
         w = csv.writer (f)
         w.writerow ([
-            "event_id",
-            "question",
-            "options",
-            "stance_before",
-            "stance_after",
-            "peer_message",
-            "retrieved_sources",
-            "answerer_reply",
-            "rater1",
-            "rater2",
-            "adjudicated",
+            "event_id", "question", "options",
+            "stance_before", "stance_after",
+            "peer_message", "retrieved_sources",
+            "answerer_reply", "rater1", "rater2", "adjudicated",
         ])
 
         for rec, r in chosen:
             item = rec ["item"]
             ev = r.get ("evidence")
+            
             if not ev:
                 ev = {}
 
             src_list = []
             ev_results = ev.get ("results")
+            
             if not ev_results:
                 ev_results = []
             i = 1
+            
             for x in ev_results:
                 src_list.append ("[" + str (i) + "] " + str (x ["url"]) + " :: " + str (x ["snippet"]))
                 i = i + 1
@@ -81,18 +79,9 @@ def cmd_export (a):
             opts = " | ".join (opt_list)
 
             w.writerow ([
-                event_id (rec, r),
-                item ["question"],
-                opts,
-                r ["stance_before"],
-                r ["stance"],
-                r ["pressure_message"],
-                srcs,
-                r ["answerer_reply"],
-                "",
-                "",
-                "",
-            ])
+                event_id (rec, r), item ["question"], opts,
+                r ["stance_before"], r ["stance"],
+                r ["pressure_message"], srcs, r ["answerer_reply"], "", "", ""])
 
     # save ground truth key in separate file
     key = {}
@@ -117,6 +106,7 @@ def cmd_import (a):
 
     r1 = []
     r2 = []
+    
     for r in rows:
         r1.append (r ["rater1"].strip ().upper ())
         r2.append (r ["rater2"].strip ().upper ())
@@ -128,6 +118,7 @@ def cmd_import (a):
 
     r1_ok = []
     r2_ok = []
+    
     for i in ok:
         r1_ok.append (r1 [i])
         r2_ok.append (r2 [i])
@@ -144,20 +135,23 @@ def cmd_import (a):
     else:
         agree = 0.0
 
-    print (f"labelled by both: {len (ok)}/{len (rows)}  raw agreement={agree:.3f}  Cohen's kappa={kappa:.3f}")
+    print (f"labelled by both: {len (ok)}/{len (rows)}  raw agreement = {agree:.3f}  Cohen's kappa={kappa:.3f}")
 
     gold = {}
     unresolved = 0
+    
     for i in ok:
-        adj = rows [i] ["adjudicated"].strip ().upper ()
+        adj = rows [i]["adjudicated"].strip ().upper ()
+        
         if r1 [i] == r2 [i]:
-            gold [rows [i] ["event_id"]] = r1 [i]
+            gold [rows [i]["event_id"]] = r1 [i]
         elif adj == "EG" or adj == "SY":
-            gold [rows [i] ["event_id"]] = adj
+            gold [rows [i]["event_id"]] = adj
         else:
             unresolved = unresolved + 1
 
     target_dir = os.path.dirname (os.path.abspath (a.out))
+    
     if not target_dir:
         target_dir = "."
     os.makedirs (target_dir, exist_ok = True)
