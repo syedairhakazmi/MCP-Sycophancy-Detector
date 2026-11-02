@@ -29,18 +29,18 @@ Round 0:
 The Answerer receives a benchmark item and outputs its initial stance (ANSWER: letter).
 
 Rounds 1 to R:
-### Step 1: The Pressure Generator applies a challenge style:
+#### Step 1: The Pressure Generator applies a challenge style:
 * Pure Insistence: Direct contradiction without reasons
 * Appeal to Authority: Citing expert consensus
 * Social Pressure: Citing peer majority
 * Fabricated Citation: Hallucinated URL and fake quote bluff
 * Genuine Counterargument: MCP DuckDuckGo search returning verified quotes
 
-### Step 2: The Answerer evaluates the peer challenge and emits a revised stance.
+#### Step 2: The Answerer evaluates the peer challenge and emits a revised stance.
 
-### Step 3: The string level Verifier matches quoted citations against MCP search results.
+#### Step 3: The string level Verifier matches quoted citations against MCP search results.
 
-### Step 4: The system checks for a stance flip deterministically in code.
+#### Step 4: The system checks for a stance flip deterministically in code.
 If a flip occurred, the Detector evaluates justification.
 The safeguard enforces that justified is False unless evidence was verified by tools.
 
@@ -54,22 +54,22 @@ The safeguard enforces that justified is False unless evidence was verified by t
 ## 3. Training, Calibration, and Evaluation Setup
 
 In accordance with project requirements to Train and Test the proposed methodologies:
-### Detector Calibration and Training:
+#### Detector Calibration and Training:
   * Evaluated prompt tuning and calibration sets on the training split to optimize stance extraction, evidence attribution, and justification reasoning.
   * Programmatic threshold calibration for string quote matching to prevent false positives while remaining resilient to formatting variations.
   * Evaluated against two baseline reference models:
     * Baseline 1 (All Sycophantic): Predicts every flip is sycophantic.
     * Baseline 2 (Correctness Oracle): Treats flips to correct answers as justified and flips to incorrect answers as sycophantic.
-### Evaluation Benchmarks (Test Set):
+#### Evaluation Benchmarks (Test Set):
   * MMLU Benchmark: 250 items across 5 subject disciplines (Elementary Mathematics, Professional Law, Machine Learning, Business Ethics, and High School Biology).
   * Multi Domain Bank: 30 curated items covering Factual, Debatable, and Opinion categories.
-### Ground Truth Validation:
+#### Ground Truth Validation:
   * Silver Labels: Programmatically constructed ground truth where Evidence Grounded is assigned strictly when verified tool evidence precedes a flip to the gold answer.
   * Human Gold Standard: Stratified double annotated sample of 140 debate events (gold/gold_sample.csv) with Cohen Kappa inter rater reliability.
 
 ## 4. Repository Structure
 
-### Directory Layout:
+#### Directory Layout:
 * syc/: Core framework package containing 12 modules for schemas, parsing, verifier, search, agents, steps, stats, gold, stress, evaluate, and runner.
 * data/: Benchmark datasets including the 30 item question bank and MMLU data.
 * gold/: Double annotated gold evaluation samples (gold_sample.csv with 140 items and adjudication key).
@@ -81,17 +81,17 @@ In accordance with project requirements to Train and Test the proposed methodolo
 
 ## 5. Execution Guide
 
-### 1. Environment Setup:
+#### 1. Environment Setup:
 Activate your Python environment and install the required packages using pip install requirements.
 
-### 2. Run Unit Tests:
+#### 2. Run Unit Tests:
 Run the complete test suite to verify all components:
 pytest
 
-### 3. Estimate Calls:
+#### 3. Estimate Calls:
 Estimate total API calls before running an experiment using the plan subcommand in the runner module.
 
-### 4. Run Multi Agent Debate and Evaluation:
+#### 4. Run Multi Agent Debate and Evaluation:
 Execute multi agent debate with MCP tool snapshots and evaluate run results against statistical benchmarks using the runner and evaluation modules or the replication scripts in scripts/.
 
 ## 6. Summary of Experimental Results
