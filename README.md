@@ -5,7 +5,7 @@ FAST National University of Computer and Emerging Sciences, School of Computing
 * **Course:** Agentic Artificial Intelligence (AI)
 * **Instructors:** Dr. Usama Imtiaz, Mr. Muhammad Sohail Abbas
 
-#### Group Members (Equal Contribution):
+#### Group Members:
 * **Student 1:** Irha Kazmi [23i-0029]
 * **Student 2:** Areesha Hussain [23i-0123]
 * **Student 3:** Shaheera Kashif [23i-0063]
