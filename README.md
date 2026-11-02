@@ -2,8 +2,8 @@
 ## Evaluating Evidence Grounded versus Sycophantic Belief Revision in Multi Agent LLM Debate
 
 FAST National University of Computer and Emerging Sciences, School of Computing
-Course: Agentic Artificial Intelligence (CS and AI)
-Instructors: Dr. Usama Imtiaz, Mr. Muhammad Sohail Abbas
+* Course: Agentic Artificial Intelligence (CS and AI)
+* Instructors: Dr. Usama Imtiaz, Mr. Muhammad Sohail Abbas
 
 Group Members:
 * Irha Kazmi [23i 0029]
