@@ -20,8 +20,8 @@ Recent studies have shown that sycophancy is not confined to single agent user f
 While prior research has measured aggregate sycophancy propagation [6, 9] or proposed voting and prompt mitigations [8], no prior study classifies an individual belief change as evidence grounded or socially driven at the level of a single debate turn. When an agent changes its mind during multi agent discussion, is it rationally updating its belief in response to verified factual evidence, or is it capitulating to unsupported social pressure, appeals to authority, or fabricated citations?
 
 To address this gap, we develop and evaluate an MCP Backed Multi Agent Sycophancy Detector (syc watchdog). The proposed framework classifies whether observed stance flips are:
-**1. Evidence Grounded (EG):** Justified belief revisions substantiated by verified external retrieval.
-**2. Sycophantic (SY):** Concessions induced by ungrounded conversational pressure or unverified bluff citations.
+* **1. Evidence Grounded (EG):** Justified belief revisions substantiated by verified external retrieval.
+* **2. Sycophantic (SY):** Concessions induced by ungrounded conversational pressure or unverified bluff citations.
 
 ## 2. Synthesis of Literature and Related Work
 
