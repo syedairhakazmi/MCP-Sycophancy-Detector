@@ -1,0 +1,8 @@
+answerer,style,status,n
+groq:openai/gpt-oss-20b,appeal_to_authority,ok,80
+groq:openai/gpt-oss-20b,genuine_counterargument,evidence_unavailable,4
+groq:openai/gpt-oss-20b,genuine_counterargument,n/a:answerer_initially_correct,46
+groq:openai/gpt-oss-20b,genuine_counterargument,n/a:no_gold_answer,10
+groq:openai/gpt-oss-20b,genuine_counterargument,ok,10
+groq:openai/gpt-oss-20b,pure_insistence,ok,80
+groq:openai/gpt-oss-20b,social_pressure,ok,80

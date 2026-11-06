@@ -2,9 +2,8 @@ import os
 import sys
 import shutil
 
-__version__ = "0.2.2"
+__version__ = "0.2.3"
 
-# make sure temp dir has enough space
 try:
     current_temp = os.environ.get ("TEMP", os.environ.get ("TMP", ""))
     

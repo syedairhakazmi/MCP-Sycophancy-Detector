@@ -5,27 +5,13 @@ import itertools
 import pandas as pd
 from . import utf8_stdout
 from .gold import event_id
+from .records import load_records
 from collections import Counter, defaultdict
 from .stats import cohen_kappa, confusion, holm, mcnemar_exact, prf, wilson
 
 # load all conversation records and keep latest attempt for retries
 def load (paths):
-    recs = []
-    
-    for p in paths:
-        with open (p, encoding = "utf-8") as f:
-            for l in f:
-                if l.strip ():
-                    recs.append (json.loads (l))
-
-    last = {}
-    for r in recs:
-        last [r ["conv_id"]] = r
-
-    out = []
-    for r in last.values ():
-        out.append (r)
-    return out
+    return load_records (paths)
 
 # return the question tier of a record
 def _grp (rec):
@@ -397,15 +383,12 @@ def detector_report (events):
                 if e ["pred_raw"] == "EG":
                     raw_eg_count = raw_eg_count + 1
 
-            per_style [st] = {
-                "n": len (ss),
-                "pred_EG_rate": eg_count / len (ss),
-                "pred_EG_rate_no_safeguard": raw_eg_count / len (ss),
-            }
+            per_style [st] = {"n": len (ss), "pred_EG_rate": eg_count / len (ss), "pred_EG_rate_no_safeguard": raw_eg_count / len (ss), }
 
         entry ["by_style"] = per_style
         group_title = " | ".join (key)
         out [group_title] = entry
+
     return out
 
 # count flips by silver cause and progressive vs regressive outcome

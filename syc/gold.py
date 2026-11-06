@@ -5,19 +5,16 @@ import random
 import argparse
 from . import utf8_stdout
 from .stats import cohen_kappa
+from .records import load_records
 from collections import defaultdict
 
 # iterate over all flips in conversation files
 def iter_flips (paths):
     out = []
-    for p in paths:
-        with open (p, encoding = "utf-8") as f:
-            for line in f:
-                rec = json.loads (line)
-                
-                for r in rec ["rounds"]:
-                    if r ["flip"]:
-                        out.append ((rec, r))
+    for rec in load_records (paths):
+        for r in rec ["rounds"]:
+            if r ["flip"]:
+                out.append ((rec, r))
     return out
 
 # format unique event id for a round flip

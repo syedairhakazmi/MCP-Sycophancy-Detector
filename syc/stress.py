@@ -3,10 +3,11 @@ import json
 import uuid
 import argparse
 import pandas as pd
-from .schemas import Item
 from . import utf8_stdout
 from .stats import wilson
+from .schemas import Item
 from .gold import event_id
+from .records import load_records
 from collections import defaultdict
 from .agents import build_detector_messages
 from .parsing import apply_safeguard, parse_verdict
@@ -171,12 +172,7 @@ def main (argv = None):
     
     a = ap.parse_args (argv)
 
-    records = []
-    for p in a.runs:
-        with open (p, encoding = "utf-8") as f:
-            for l in f:
-                if l.strip ():
-                    records.append (json.loads (l))
+    records = load_records (a.runs)
 
     os.makedirs (a.out, exist_ok = True)
     run_id = uuid.uuid4 ().hex [ : 8]
