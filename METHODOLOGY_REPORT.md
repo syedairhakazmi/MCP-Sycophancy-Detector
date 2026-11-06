@@ -288,9 +288,9 @@ A full pilot evaluation comprising 310 multi agent conversations was executed us
 **Note on sample sizes:** The regressive flip rates above are computed from small denominators (37 initially correct items for MMLU, 9 for Test Bank Debatable). These point estimates should be interpreted with caution and confirmed with larger samples. The genuine counterargument arm had only 9 eligible conversations, producing a wide confidence interval.
 
 ### Key Behavioral Observations
-**1. Susceptibility to Rhetorical Pressure:** On standardized academic benchmarks, models flipped in 8% to 14% of debates under purely rhetorical pressure containing zero factual justification.
-**2. Regressive Sycophancy Was Observed:** In a small number of cases (2 to 3 out of 37 initially correct conversations), the model abandoned its correct knowledge and adopted a false claim due to peer insistence or manufactured consensus. These counts are too small to draw strong conclusions and require larger scale replication.
-**3. Receptivity to Genuine Evidence:** When challenged with verified web evidence retrieved via MCP on questions it had gotten wrong, the model corrected its stance in 44.4% of cases (4 of 9 conversations), with 3 of those flips classified as evidence grounded by the Detector.
+* **1. Susceptibility to Rhetorical Pressure:** On standardized academic benchmarks, models flipped in 8% to 14% of debates under purely rhetorical pressure containing zero factual justification.
+* **2. Regressive Sycophancy Was Observed:** In a small number of cases (2 to 3 out of 37 initially correct conversations), the model abandoned its correct knowledge and adopted a false claim due to peer insistence or manufactured consensus. These counts are too small to draw strong conclusions and require larger scale replication.
+* **3. Receptivity to Genuine Evidence:** When challenged with verified web evidence retrieved via MCP on questions it had gotten wrong, the model corrected its stance in 44.4% of cases (4 of 9 conversations), with 3 of those flips classified as evidence grounded by the Detector.
 
 ### 6.2. Paired McNemar Statistical Significance Tests
 
@@ -417,11 +417,11 @@ Across all 44 observed flips (some conversations had multiple flip events across
 * **32 flips** were sycophantic and regressive (the Answerer moved away from the correct answer under ungrounded pressure).
 
 ### Key Detector Observations
-**1. Perfect Agreement with Silver Labels:** The Detector correctly classified all 46 flip events, achieving Macro F1 of 1.000 and Cohen Kappa of 1.000 against silver labels. However, these labels are programmatically derived (not human annotated), so this result reflects consistency between the Detector and the automated labeling pipeline rather than independent validation.
-**2. Detector Matched Verifier on Evidence:** The Detector's assessment of whether the peer presented evidence agreed with the verifier's ground truth in 100% of cases.
-**3. Baseline 1 Fails on the Genuine Arm:** The all sycophantic baseline achieves a kappa of 0.000 because it cannot identify any evidence grounded flips. Its high raw accuracy (93.5%) is misleading because the dataset is heavily imbalanced (only 3 EG events out of 46).
-**4. Baseline 2 Misclassifies Lucky Guesses:** The correctness oracle misclassifies 19.6% of flips because an agent that flips to the correct answer due to peer pressure (without verified evidence) is still sycophantic. It achieves EG precision of only 0.250.
-**5. Limitation:** The EG class has only 3 events, which means the Detector's perfect EG recall is based on a very small sample. Human gold labels (requiring two independent raters) have not yet been collected and are planned as future work.
+* **1. Perfect Agreement with Silver Labels:** The Detector correctly classified all 46 flip events, achieving Macro F1 of 1.000 and Cohen Kappa of 1.000 against silver labels. However, these labels are programmatically derived (not human annotated), so this result reflects consistency between the Detector and the automated labeling pipeline rather than independent validation.
+* **2. Detector Matched Verifier on Evidence:** The Detector's assessment of whether the peer presented evidence agreed with the verifier's ground truth in 100% of cases.
+* **3. Baseline 1 Fails on the Genuine Arm:** The all sycophantic baseline achieves a kappa of 0.000 because it cannot identify any evidence grounded flips. Its high raw accuracy (93.5%) is misleading because the dataset is heavily imbalanced (only 3 EG events out of 46).
+* **4. Baseline 2 Misclassifies Lucky Guesses:** The correctness oracle misclassifies 19.6% of flips because an agent that flips to the correct answer due to peer pressure (without verified evidence) is still sycophantic. It achieves EG precision of only 0.250.
+* **5. Limitation:** The EG class has only 3 events, which means the Detector's perfect EG recall is based on a very small sample. Human gold labels (requiring two independent raters) have not yet been collected and are planned as future work.
 
 ## 7. Conclusion
 
